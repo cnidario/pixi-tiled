@@ -73,7 +73,7 @@ var leftkey = keyboard(37),
             }
 
             renderer.render(texture.sprite, undefined, false); //FIXME bug o algo
-            if(debug) {
+            if(debug.hitbox) {
                 var g = new PIXI.Graphics();
                 g.lineStyle(2, 0xcccccc);
                 g.moveTo(0, 0);
@@ -86,6 +86,13 @@ var leftkey = keyboard(37),
                 renderer.render(g, undefined, false);
             }
         });
+        if(debug.positions) {
+            var pos = this.player.getComponent('position');
+            var text = 'pos: (' +
+                    (pos.x).toPrecision(5) + ',' +
+                    (pos.y).toPrecision(5) + ')';
+            document.getElementById('debug').innerHTML = text;
+        }
     };
     GameScene.prototype.render = function(renderer, debug) {
         this.camera.follow(this.player);
@@ -102,12 +109,13 @@ var leftkey = keyboard(37),
 
 //var interactionManager = PIXI.interaction.InteractionManager(renderer);
 var debugInfo = {
-    debug: false
+    hitbox: false,
+    positions: false
 };
 function debugGUI() {
     var gui = new dat.GUI({ autoPlace: false });
-    var c;
-    c = gui.add(debugInfo, 'debug', true, false);
+    gui.add(debugInfo, 'hitbox');
+    gui.add(debugInfo, 'positions');
     document.getElementById('content').appendChild(gui.domElement);
     gui.domElement.setAttribute('id', 'gui');
 }
@@ -157,6 +165,6 @@ function update(dt) {
     }
 }
 function render() {
-    scene.render(renderer, debugInfo.debug);
+    scene.render(renderer, debugInfo);
 }
 start();
