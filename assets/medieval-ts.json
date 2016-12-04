@@ -1,0 +1,11 @@
+{ "columns":18,
+ "image":"medieval_tilesheet.png",
+ "imageheight":704,
+ "imagewidth":1760,
+ "margin":32,
+ "name":"medieval-ts",
+ "spacing":32,
+ "tilecount":126,
+ "tileheight":64,
+ "tilewidth":64
+}
